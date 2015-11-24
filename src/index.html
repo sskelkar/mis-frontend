@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>mis-frontend Application</title>
+  <link type="text/css" href="assets/css/style.css">
+</head>
+<body>
+  <mis-frontend></mis-frontend>
+
+  <script src="systemjs/dist/system.src.js"></script>
+  <script src="angular2/bundles/angular2.dev.js"></script>
+  <script src="angular2/bundles/http.dev.js"></script>
+  <script>
+    System.config({
+      packages: {
+        'components': {defaultExtension: 'js'},
+        'filters': {defaultExtension: 'js'},
+        'services': {defaultExtension: 'js'}
+      }
+    });
+    System.import('mis-frontend.js')
+  </script>
+</body>
+</html>
