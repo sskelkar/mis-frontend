@@ -8,7 +8,7 @@ import {EmployeeService} from '../../services/employee-service';
     providers: [EmployeeService]
 })
 export class EmployeeDetailComponent {
-    private employee:Employee = new Employee();
+    private employee:Employee;
     
     constructor(employeeService:EmployeeService) { 
       employeeService.getEmployeeById(21).subscribe(employee => {console.log(employee);this.employee = employee});  
