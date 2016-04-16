@@ -11,6 +11,6 @@ export class EmployeeDetailComponent {
     private employee:Employee;
     
     constructor(employeeService:EmployeeService) { 
-      employeeService.getEmployeeById(21).subscribe(employee => {console.log(employee);this.employee = employee});  
+      employeeService.getEmployeeById(21).subscribe(employee => {this.employee = employee});  
     }
 }
