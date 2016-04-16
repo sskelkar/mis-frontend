@@ -10,13 +10,15 @@
   <script src="rxjs/bundles/Rx.js"></script>
   <script src="angular2/bundles/angular2.dev.js"></script>
   <script src="es6-shim/es6-shim.js"></script>
+  <script src="angular2/bundles/http.dev.js"></script>
 
   <script>
     System.config({
       packages: {
         'components': {format: 'register', defaultExtension: 'js'},
         'filters': {format: 'register', defaultExtension: 'js'},
-        'services': {format: 'register', defaultExtension: 'js'}
+        'services': {format: 'register', defaultExtension: 'js'},
+        'domains': {format: 'register', defaultExtension: 'js'}
       }
     });
     System.import('mis-frontend.js').then(null, console.error.bind(console));

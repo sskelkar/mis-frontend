@@ -1,0 +1,22 @@
+<h3>Edit employee Details</h3>
+<div>First Name: <input [(ngModel)]="employee.firstName" id="firstName" type="text"></div> 
+<div>Middle Name: <input [(ngModel)]="employee.middleName" id="middleName" type="text"></div>
+<div>Last Name: <input [(ngModel)]="employee.lastName" id="lastName" type="text"></div>
+<div>Date of birth: <input [(ngModel)]="employee.birthDate" id="birthDate" type="text"></div>
+<div>Sex: <input [(ngModel)]="employee.sex" id="sex" type="text"></div>
+<div>Blood group: <input [(ngModel)]="employee.bloodGroup" id="bloodGroup" type="text"></div>
+<div>Email: <input [(ngModel)]="employee.email" id="email" type="text"></div>
+<div>Date of joining: <input [(ngModel)]="employee.joiningDate" id="joiningDate" type="text"></div>
+<div>Probation period (in months): <input [(ngModel)]="employee.probationPeriodMonths" id="probationPeriodMonths" type="text"></div>
+<div>Date of release: <input [(ngModel)]="employee.releaseDate" id="releaseDate" type="text"></div>
+
+<div>PAN number: <input [(ngModel)]="employee.panNumber" id="panNumber" type="text"></div>
+<div>Passport Number: <input [(ngModel)]="employee.passportNumber" id="passportNumber" type="text"></div>
+<div>Passport expiry date: <input [(ngModel)]="employee.passportValidTill" id="passportValidTill" type="text"></div>
+
+<h4>Emergency contact person details:</h4>
+<div>Name: <input [(ngModel)]="employee.emergencyContactPerson" id="emergencyContactPerson" type="text"></div>
+<div>Contact number: <input [(ngModel)]="employee.emergencyContactPhoneNumber" id="emergencyContactPhoneNumber" type="text"></div>
+
+<div><button type="button" (click)="save(employee)">Save</button></div>
+<div><button type="button" (click)="cancel(employee)">Cancel</button></div>
