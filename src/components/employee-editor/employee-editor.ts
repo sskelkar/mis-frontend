@@ -19,13 +19,13 @@ export class EmployeeEditorComponent {
     });
   }
   
-  save(employee:Employee) {
-    this.employeeService.updateEmployee(employee).subscribe(
+  save() {
+    this.employeeService.updateEmployee(this.employee).subscribe(
       // navigate back to details page
     );
   }
   
-  cancel(employee:Employee) {
+  cancel() {
     this.employee = this.cloneService.clone(this.copy);
   }
   

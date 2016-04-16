@@ -19,7 +19,7 @@ export class EmployeeService {
     return this.http.get(this.employeeServiceUrl).map(res => res.json());
   }      
   
-  public getEmployeeById(id:number):Observable<Employee> {
+  public getEmployeeById(id:any):Observable<Employee> {
     let url = this.employeeServiceUrl + '/' + id;
     return this.http.get(url)
       .map(res => res.json());

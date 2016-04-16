@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <base href="/"></base>  
   <meta charset="UTF-8">
   <title>mis-frontend Application</title>
   <link type="text/css" href="assets/css/style.css">
@@ -11,6 +12,7 @@
   <script src="angular2/bundles/angular2.dev.js"></script>
   <script src="es6-shim/es6-shim.js"></script>
   <script src="angular2/bundles/http.dev.js"></script>
+  <script src="angular2/bundles/router.dev.js"></script>
 
   <script>
     System.config({
@@ -23,10 +25,9 @@
     });
     System.import('mis-frontend.js').then(null, console.error.bind(console));
   </script>
-
 </head>
 <body>
-  <mis-frontend></mis-frontend>
+  <mis-frontend>Loading...</mis-frontend>
 </body>
 </html>
 

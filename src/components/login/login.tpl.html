@@ -1,0 +1,10 @@
+<!-- TODO -->
+<!-- show some kind of notification like "Password is required" if user fills the form fields incorrectly -->
+<!-- implement "Remember me" checkbox -->
+<!-- implement "Forgot password" -->
+
+Username: <input [(ngModel)]="userName" id="userName" type="text"><br/>
+Password: <input [(ngModel)]="password" id="password" type="password">
+
+<div><button type="button" (click)="login(userName, password)">Login</button></div>
+<span *ngIf="loggedInUserId < 0" >Invalid credentials</span>
