@@ -8,7 +8,7 @@ import 'rxjs/add/operator/catch';
 @Injectable() 
 export class EmployeeService {
   private employeeServiceUrl = 'http://localhost:71/mis/employee';
-  
+  private loggedInEmployeeId = "loggedInEmployeeId";
   constructor(private http:Http) {
     
   }
@@ -19,7 +19,7 @@ export class EmployeeService {
     return this.http.get(this.employeeServiceUrl).map(res => res.json());
   }      
   
-  public getEmployeeById(id:number):Observable<Employee> {
+  public getEmployeeById(id:any):Observable<Employee> {
     let url = this.employeeServiceUrl + '/' + id;
     return this.http.get(url)
       .map(res => res.json());
@@ -31,6 +31,14 @@ export class EmployeeService {
     let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
     let json = JSON.stringify(employee);
     return this.http.put(url, json, {headers});
+  }
+  
+  public setLoggedInEmployeeId(id:any) {
+    localStorage.setItem(this.loggedInEmployeeId, id);
+  }
+  
+  public getLoggedInEmployeeId():Observable<Employee> {
+    return this.getEmployeeById(localStorage.getItem(this.loggedInEmployeeId));
   }
   // private handleError (error: Response) {
   //   // in a real world app, we may send the error to some remote logging infrastructure

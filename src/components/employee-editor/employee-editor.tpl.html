@@ -1,9 +1,11 @@
+<!-- TODO -->
+<!-- This form should have controls appropriate to the fields. For example, Blood Group can be a drop down. Sex field can be a radio button. --> 
 <h3>Edit employee Details</h3>
 <div>First Name: <input [(ngModel)]="employee.firstName" id="firstName" type="text"></div> 
 <div>Middle Name: <input [(ngModel)]="employee.middleName" id="middleName" type="text"></div>
 <div>Last Name: <input [(ngModel)]="employee.lastName" id="lastName" type="text"></div>
 <div>Date of birth: <input [(ngModel)]="employee.birthDate" id="birthDate" type="text"></div>
-<div>Sex: <input [(ngModel)]="employee.sex" id="sex" type="text"></div>
+<div>Sex: <input [(ngModel)]="employee.sex" id="sex" type="text"></div> 
 <div>Blood group: <input [(ngModel)]="employee.bloodGroup" id="bloodGroup" type="text"></div>
 <div>Email: <input [(ngModel)]="employee.email" id="email" type="text"></div>
 <div>Date of joining: <input [(ngModel)]="employee.joiningDate" id="joiningDate" type="text"></div>
@@ -18,5 +20,5 @@
 <div>Name: <input [(ngModel)]="employee.emergencyContactPerson" id="emergencyContactPerson" type="text"></div>
 <div>Contact number: <input [(ngModel)]="employee.emergencyContactPhoneNumber" id="emergencyContactPhoneNumber" type="text"></div>
 
-<div><button type="button" (click)="save(employee)">Save</button></div>
-<div><button type="button" (click)="cancel(employee)">Cancel</button></div>
+<div><button type="button" (click)="save()">Save</button></div>
+<div><button type="button" (click)="cancel()">Cancel</button></div>
