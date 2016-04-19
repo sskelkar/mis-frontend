@@ -1,0 +1,6 @@
+Welcome {{loggedInEmployee.firstName}}!<br/>
+<a [routerLink]="['EmployeeDetail']">Details</a>
+<a [routerLink]="['LeavePanel']">Leaves</a>
+<a (click)="logout()">Logout</a>
+<br/>
+<router-outlet></router-outlet>

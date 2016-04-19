@@ -33,13 +33,21 @@ export class EmployeeService {
     return this.http.put(url, json, {headers});
   }
   
-  public setLoggedInEmployeeId(id:any) {
+  /*
+   *  Sets the current logged in employee's id into localStorage and returns corresponding employee object.
+   */
+  public setLoggedInEmployeeId(id:any):Observable<Employee> {
     localStorage.setItem(this.loggedInEmployeeId, id);
+    return this.getEmployeeById(id);
   }
   
-  public getLoggedInEmployeeId():Observable<Employee> {
+  public getLoggedInEmployee():Observable<Employee> {
     return this.getEmployeeById(localStorage.getItem(this.loggedInEmployeeId));
   }
+  
+  public getLoggedInEmployeeId() {
+    return localStorage.getItem(this.loggedInEmployeeId);
+  }  
   // private handleError (error: Response) {
   //   // in a real world app, we may send the error to some remote logging infrastructure
   //   // instead of just logging it to the console

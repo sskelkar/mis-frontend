@@ -1,7 +1,7 @@
 import {Component} from 'angular2/core';
-import {Employee} from '../../domains/employee';
-import {EmployeeService} from '../../services/employee-service';
-import {CloneService} from '../../services/clone-service';
+import {Employee} from '../../../domains/employee';
+import {EmployeeService} from '../../../services/employee-service';
+import {CloneService} from '../../../services/clone-service';
 import {Router} from 'angular2/router';
 
 @Component({
@@ -18,7 +18,7 @@ export class EmployeeEditorComponent {
   }
 
   ngOnInit() {
-    this.employeeService.getLoggedInEmployeeId().subscribe(e => {
+    this.employeeService.getLoggedInEmployee().subscribe(e => {
       this.employee = e;
       this.copy = this.cloneService.clone(this.employee);      
     });

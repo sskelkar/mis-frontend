@@ -1,6 +1,6 @@
 import {Component} from 'angular2/core';
-import {Employee} from '../../domains/employee';
-import {EmployeeService} from '../../services/employee-service';
+import {Employee} from '../../../domains/employee';
+import {EmployeeService} from '../../../services/employee-service';
 import {RouteParams, ROUTER_DIRECTIVES} from 'angular2/router';
 
 @Component({
@@ -17,6 +17,6 @@ export class EmployeeDetailComponent {
     }
     
     ngOnInit() {
-      this.employeeService.getLoggedInEmployeeId().subscribe(e => this.employee = e);;
+      this.employeeService.getLoggedInEmployee().subscribe(e => this.employee = e);;
     }
 }

@@ -2,7 +2,7 @@
 
 import {bootstrap} from 'angular2/platform/browser'
 import {LoginComponent} from './components/login/login'
-import {LoggedInEmployeeComponent} from './components/logged-in-employee/logged-in-employee'
+import {EmployeePanelComponent} from './components/employee/employee-panel/employee-panel'
 import {Type} from "angular2/core";
 import {Component} from "angular2/core";
 import {HTTP_PROVIDERS, Response} from "angular2/http";
@@ -23,8 +23,8 @@ import {ROUTER_PROVIDERS, ROUTER_DIRECTIVES, RouteConfig} from 'angular2/router'
   }, 
   {
     path: '/employee/:id/...',  
-    name: 'LoggedInEmployee', 
-    component: LoggedInEmployeeComponent
+    name: 'EmployeePanel', 
+    component: EmployeePanelComponent
   }
 ])
 export class MisFrontend{
