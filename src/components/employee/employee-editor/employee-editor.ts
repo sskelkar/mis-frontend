@@ -7,7 +7,7 @@ import {Router} from 'angular2/router';
 @Component({
   selector: 'employee-editor',
   templateUrl : `employee-editor.tpl.html`,
-  providers: [EmployeeService, CloneService]
+  providers: [CloneService]
 })
 export class EmployeeEditorComponent {
   employee:Employee = <Employee>{};

@@ -9,8 +9,7 @@ import {Employee} from '../../../domains/employee';
 @Component({
   selector: 'employee-panel',
   templateUrl : `employee-panel.tpl.html`,
-  directives: [RouterOutlet, ROUTER_DIRECTIVES],
-  providers: [EmployeeService]
+  directives: [RouterOutlet, ROUTER_DIRECTIVES]
 })
 @RouteConfig ([
   {

@@ -7,13 +7,14 @@ import {Type} from "angular2/core";
 import {Component} from "angular2/core";
 import {HTTP_PROVIDERS, Response} from "angular2/http";
 import {ROUTER_PROVIDERS, ROUTER_DIRECTIVES, RouteConfig} from 'angular2/router';
+import {EmployeeService} from './services/employee-service';
 
 //For some reason Intellij throws errors if the component does not have in front of it.
 @Component({
   selector: 'mis-frontend',
   templateUrl: 'mis-frontend.tpl.html',
   directives: [ROUTER_DIRECTIVES],
-  providers: [HTTP_PROVIDERS]
+  providers: [HTTP_PROVIDERS, EmployeeService]
 })
 @RouteConfig([
   {

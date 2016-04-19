@@ -6,8 +6,7 @@ import {RouteParams, ROUTER_DIRECTIVES} from 'angular2/router';
 @Component({
     selector: 'employee-detail',
     templateUrl : 'employee-detail.tpl.html',
-    directives: [ROUTER_DIRECTIVES ],
-    providers: [EmployeeService]
+    directives: [ROUTER_DIRECTIVES ]
 })
 export class EmployeeDetailComponent {
     private employee:Employee;
