@@ -2,6 +2,7 @@ import {Component} from 'angular2/core';
 import {Employee} from '../../domains/employee';
 import {EmployeeService} from '../../services/employee-service';
 import {CloneService} from '../../services/clone-service';
+import {Router} from 'angular2/router';
 
 @Component({
   selector: 'employee-editor',
@@ -12,21 +13,24 @@ export class EmployeeEditorComponent {
   employee:Employee = <Employee>{};
   copy:Employee = <Employee>{};
   
-  constructor(private employeeService:EmployeeService, private cloneService:CloneService<Employee>) {
-    this.employeeService.getEmployeeById(21).subscribe(employee => {
-      this.employee = employee; 
-      this.copy = this.cloneService.clone(this.employee);
-    });
+  constructor(private employeeService:EmployeeService, private cloneService:CloneService<Employee>, private router:Router) {
+
   }
-  
+
+  ngOnInit() {
+    this.employeeService.getLoggedInEmployeeId().subscribe(e => {
+      this.employee = e;
+      this.copy = this.cloneService.clone(this.employee);      
+    });
+  } 
+   
   save() {
-    this.employeeService.updateEmployee(this.employee).subscribe(
-      // navigate back to details page
-    );
+    this.employeeService.updateEmployee(this.employee).subscribe( () => this.router.navigate(['EmployeeDetail']));
   }
   
   cancel() {
-    this.employee = this.cloneService.clone(this.copy);
+    this.employee = this.cloneService.clone(this.copy);3
+    this.router.navigate(['EmployeeDetail']);
   }
   
 

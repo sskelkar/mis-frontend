@@ -14,13 +14,11 @@ export class LoginComponent {
   
   login(username:String, password:String) {
     // TODO: implement this properly!
-    if(username == "sokema" && password == "sokema") {
-      console.log("valid");
+    if(username == "s" && password == "s") {
       this.loggedInUserId = 21;
-      this.router.navigate(['/EmployeeDetail', {id: this.loggedInUserId}]);
+      this.router.navigate(['LoggedInEmployee', {id: 21}]);
     }
     else {
-      console.log("invalid");
       this.loggedInUserId = -1; // invalid login
     }
   }
