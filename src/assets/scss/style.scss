@@ -1,8 +1,24 @@
+@import "settings";
+
+body {
+  background-color: rgba(249, 196, 100, 1) !important;
+}
+
 div.login {
+  background-color: rgba(252, 246, 246, 1) !important;
+  margin-top: 4rem;
   width: 40%;
   padding: 2rem;
+  border: 1px;
+  border-radius: 5px;
   button.btn {
     margin-top: 2rem;
   }
 }
 
+div.header-label {
+  font-family: "DAX Condensed",Arial,Helvetica,sans-serif;
+  margin-top: 4rem;
+  text-align: center;
+  font-size: 4rem;
+}
