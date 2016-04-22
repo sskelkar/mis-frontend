@@ -1,4 +1,5 @@
 @import "settings";
+@import url(https://fonts.googleapis.com/css?family=Bitter);
 
 body {
   background-color: rgba(249, 196, 100, 1) !important;
@@ -6,6 +7,7 @@ body {
 
 div.login {
   background-color: rgba(252, 246, 246, 1) !important;
+  font-family: 'Bitter', serif;
   margin-top: 4rem;
   width: 40%;
   padding: 2rem;
@@ -13,11 +15,12 @@ div.login {
   border-radius: 5px;
   button.btn {
     margin-top: 2rem;
+    font-family: inherit;
   }
 }
 
 div.header-label {
-  font-family: "DAX Condensed",Arial,Helvetica,sans-serif;
+  font-family: 'Bitter', serif;
   margin-top: 4rem;
   text-align: center;
   font-size: 4rem;

@@ -1,0 +1,11 @@
+<div class="header">
+  <nav class="navbar navbar-default navbar-fixed-top">
+  <div class="header-label">Maxxton MIS 2.0</div>
+  Welcome {{loggedInEmployee.firstName}}!<br/>
+  <a (click)="logout()">Logout</a>
+  </nav>
+</div>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
+<div class="header">footer goes here</div>

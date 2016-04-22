@@ -16,6 +16,6 @@ export class EmployeeDetailComponent {
     }
     
     ngOnInit() {
-      this.employeeService.getLoggedInEmployee().subscribe(e => this.employee = e);;
+      this.employeeService.getLoggedInEmployee().subscribe(e => this.employee = e);
     }
 }
