@@ -11,4 +11,6 @@ export class AppliedLeave {
   commentByApplicant:string;
   managerId:number;
   commentByManager:string;
+  leaveType:string;
+  leaveStatus:string;
 }

@@ -11,8 +11,8 @@ import 'rxjs/add/operator/catch';
 @Injectable() 
 export class LeaveService {
   private leaveServiceUrl = 'http://localhost:72/mis/leave';
-  private allLeaveTypes:Array<LeaveType>;
-  private allLeaveStatuses:Array<LeaveStatus>;
+  private allLeaveTypes:Array<string>;
+  private allLeaveStatuses:Array<string>;
   
   constructor(private http:Http) {
     
@@ -23,12 +23,12 @@ export class LeaveService {
     return this.http.get(url).map(res => res.json());
   }
   
-  getAllLeaveTypes():Observable<Array<LeaveType>> {
+  getAllLeaveTypes():Observable<Array<string>> {
     let url = this.leaveServiceUrl + "/types";      
     return this.http.get(url).map(res => res.json());
   }
   
-  getAllLeaveStatuses():Observable<Array<LeaveStatus>> {
+  getAllLeaveStatuses():Observable<Array<string>> {
       let url = this.leaveServiceUrl + "/statuses";
       return this.http.get(url).map(res => res.json());
   }  

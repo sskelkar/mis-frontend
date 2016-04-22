@@ -1,0 +1,24 @@
+You have following leaves available:<br/>
+<div>Planned: {{available?.planned}}  Unplanned: {{available?.unplanned}}  Compensatory off: {{available?.compOff}}</div>
+
+Apply leaves:
+<div>
+  Leave From: <input [value]="appliedLeave.leaveFrom" (change)="appliedLeave.leaveFrom=$event.target.value" type="date"><br/>
+  <input #f type="radio" (click)="appliedLeave.leaveFromHalf=f.value" [checked]="appliedLeave.leaveFromHalf==f.value" value="first"> First half
+  <input #s type="radio" (click)="appliedLeave.leaveFromHalf=s.value" [checked]="appliedLeave.leaveFromHalf==s.value" value="second"> Second half  
+</div>
+<div>  
+  Leave To: <input [(ngModel)]="appliedLeave.leaveTo" type="date"><br/>
+  <input #f type="radio" (click)="appliedLeave.leaveToHalf=f.value" [checked]="appliedLeave.leaveToHalf==f.value" value="first"> First half
+  <input #s type="radio" (click)="appliedLeave.leaveToHalf=s.value" [checked]="appliedLeave.leaveToHalf==s.value" value="second"> Second half
+</div>
+
+
+<select class="form-control" required [(ngModel)]="appliedLeave.leaveType" >
+  <option *ngFor="#leaveType of allLeaveTypes" [ngValue]="leaveType" >{{leaveType}}</option>
+</select>  
+
+
+<div><button type="button" [ngClass]="{active: isOn, disabled: isDisabled}" (click)="save()">Done</button></div>
+<div><button type="button" (click)="cancel()">Clear</button></div>
+
