@@ -5,7 +5,7 @@
 
 <div class="login jumbotron center-block">
   <form role="form" (submit)="login(userName, password)">
-    <alert *ngIf="loggedInUserId < 0"  type="danger">Invalid credentials</alert>
+    <alert [hidden]="loggedInUserId >= 0"  type="danger">Invalid credentials</alert>
     <input [(ngModel)]="userName" id="userName" type="text" class="form-control" placeholder="Username"><br/>
     <input [(ngModel)]="password" id="password" type="password" class="form-control" placeholder="Password">
     <button type="submit" class='btn btn-primary'>Login</button>
