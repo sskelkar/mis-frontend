@@ -2,6 +2,7 @@
 
 import {bootstrap} from 'angular2/platform/browser'
 import {LoginComponent} from './components/login/login'
+import {EmployeeHistoryComponent} from './components/employee/employee-history/employee-history-component'
 import {EmployeePanelComponent} from './components/employee/employee-panel/employee-panel'
 import {Type} from "angular2/core";
 import {Component} from "angular2/core";
@@ -21,7 +22,7 @@ import {LeaveService} from './services/leave-service';
   {
     path: '/', 
     name: 'Login', 
-    component: LoginComponent
+    component: EmployeeHistoryComponent
   }, 
   {
     path: '/employee/:id/...',  

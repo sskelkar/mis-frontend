@@ -1,6 +1,5 @@
 import {Component} from 'angular2/core';
 import {Employee} from '../../../domains/employee';
-import {LeaveType} from '../../../domains/leave-type';
 import {AppliedLeave} from '../../../domains/applied-leave';
 import {AvailableLeaveCount} from '../../../domains/available-leave-count';
 import {LeaveService} from '../../../services/leave-service';
@@ -53,7 +52,6 @@ export class ApplyLeavePanelComponent {
     
     let loggedInEmployeeId = this.employeeService.getLoggedInEmployeeId();    
     this.leaveService.getAvailableLeaves(loggedInEmployeeId).subscribe(a => this.available = a);
-    this.leaveService.getAllLeaveTypes().subscribe(types => {console.log("fetched: "+types);this.allLeaveTypes = types});  
    
   }
 }
