@@ -16,6 +16,6 @@ export class EmployeeDetailComponent {
     }
     
     ngOnInit() {
-      this.employeeService.getLoggedInEmployee().subscribe(e => this.employee = e);;
+      this.employeeService.getLoggedInEmployee().subscribe(data => this.employee = data, e => console.log("Network problem while connecting to employee-service"));;
     }
 }
