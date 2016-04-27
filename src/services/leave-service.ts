@@ -23,9 +23,7 @@ export class LeaveService {
     return this.http.get(url).map(res => res.json());
   }
   
-  getAllHolidays():Observable<PublicHoliday[]>{
-    let url = this.leaveServiceUrlHoliday ;
-    console.log(url);
-    return this.http.get(url).map(res => res.json());
+  getAllHolidays():Observable<PublicHoliday[]>{    
+    return this.http.get(this.leaveServiceUrlHoliday).map(res => res.json());
   }
 }
