@@ -29,7 +29,7 @@ export class EmployeeEditorComponent {
   }
   
   cancel() {
-    this.employee = this.cloneService.clone(this.copy);3
+    this.employee = this.cloneService.clone(this.copy);
     this.router.navigate(['EmployeeDetail']);
   }
   

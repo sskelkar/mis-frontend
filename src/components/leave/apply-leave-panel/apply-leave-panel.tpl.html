@@ -1,31 +1,31 @@
 You have following leaves available:<br/>
-<div>Planned: {{available?.planned}}  Unplanned: {{available?.unplanned}}  Compensatory off: {{available?.compOff}} Borrowable: {{available?.borrowable}}</div>
+<div>Planned: {{availableLeaves?.planned}}  Unplanned: {{availableLeaves?.unplanned}}  Compensatory off: {{availableLeaves?.compOff}} Borrowable: {{availableLeaves?.borrowable}}</div>
 
-Apply leaves:
-<div>
-  Leave From: <input [value]="appliedLeave.leaveFrom" (change)="appliedLeave.leaveFrom=$event.target.value" type="date"><br/>
-  <input #f type="radio" (click)="appliedLeave.leaveFromHalf=f.value" [checked]="appliedLeave.leaveFromHalf==f.value" value="First"> First half
-  <input #s type="radio" (click)="appliedLeave.leaveFromHalf=s.value" [checked]="appliedLeave.leaveFromHalf==s.value" value="Second"> Second half  
-</div>
-<div>
-  Leave To: <input [value]="appliedLeave.leaveTo" (change)="appliedLeave.leaveTo=$event.target.value" type="date"><br/>
-  <input #f type="radio" (click)="appliedLeave.leaveToHalf=f.value" [checked]="appliedLeave.leaveToHalf==f.value" value="First"> First half
-  <input #s type="radio" (click)="appliedLeave.leaveToHalf=s.value" [checked]="appliedLeave.leaveToHalf==s.value" value="Second"> Second half
-</div>
+<form>
+  Apply leaves:
+  <div>
+    Leave From: <input required [value]="appliedLeave.leaveFrom" (change)="appliedLeave.leaveFrom=$event.target.value" type="date"><br/>
+    <input #f type="radio" (click)="appliedLeave.leaveFromHalf=f.value" [checked]="appliedLeave.leaveFromHalf==f.value" value="First"> First half
+    <input #s type="radio" (click)="appliedLeave.leaveFromHalf=s.value" [checked]="appliedLeave.leaveFromHalf==s.value" value="Second"> Second half  
+  </div>
+  <div>
+    Leave To: <input required [value]="appliedLeave.leaveTo" (change)="appliedLeave.leaveTo=$event.target.value" type="date"><br/>
+    <input #f type="radio" (click)="appliedLeave.leaveToHalf=f.value" [checked]="appliedLeave.leaveToHalf==f.value" value="First"> First half
+    <input #s type="radio" (click)="appliedLeave.leaveToHalf=s.value" [checked]="appliedLeave.leaveToHalf==s.value" value="Second"> Second half
+  </div>
 
+  <alert [hidden]="areDatesValid"  type="danger"><b>Leave From</b> cannot be after <b>Leave To</b>!</alert>
 
-<select class="form-control" required [(ngModel)]="appliedLeave.leaveType" >
-  <option *ngFor="#leaveType of allLeaveTypes" [ngValue]="leaveType" >{{leaveType}}</option>
-</select>  
+  <select class="form-control" [(ngModel)]="appliedLeave.leaveType">
+    <option *ngFor="#leave of allLeaveTypes" [ngValue]="leave" >{{leave}}</option>
+  </select>  
 
-<textarea [(ngModel)]="appliedLeave.commentByApplicant"></textarea>
-<div><button type="button" [ngClass]="{active: isOn, disabled: isDisabled}" (click)="apply()">Apply</button></div>
-<div><button type="button" (click)="clear()">Clear</button></div>
-<div><button #c type="button" (click)="process(c.value)" value="Cancelled">Cancel</button></div>
+  Leave reason: <textarea [(ngModel)]="appliedLeave.commentByApplicant"></textarea>
+  <div [hidden]="!leaveOpenedByManager">Comment by manager: <textarea [(ngModel)]="appliedLeave.commentByManager"></textarea></div>
+  <div><button type="submit" (click)="apply()">Apply</button></div>
+  <div><button #c type="button" (click)="process(c.value)" value="Cancelled">Cancel</button></div>  
+  <div><button #a type="button" [hidden]="!leaveOpenedByManager" (click)="process(c.value)" value="Approved">Approve</button></div>
+  <div><button #r type="button" [hidden]="!leaveOpenedByManager" (click)="process(c.value)" value="Rejected">Reject</button></div>   
+  <div><button type="button" (click)="clear()">Reset</button></div>
+</form>
 
-<!-- add textarea for manager's comment and Reject and Approve buttons that is only visible if manager opens this page 
-  
-  <div><button #a type="button" (click)="process(c.value)" value="Approved">Approve</button></div>
-  <div><button #r type="button" (click)="process(c.value)" value="Rejected">Reject</button></div>  
-  
-  and hide Apply/cancel/clear buttons -->
