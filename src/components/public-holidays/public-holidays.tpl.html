@@ -1,0 +1,13 @@
+Public holidays in current year :<br/>
+<div>
+
+
+<table border="1">
+  <tr *ngFor="#holiday of holidays">
+      <td>{{holiday?.name}}</td>
+      <td>{{holiday?.holidayDate | date:'EEEE, MMMM d, y'}}</td>
+  </tr>
+</table>
+
+</div>
+

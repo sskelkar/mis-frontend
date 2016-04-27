@@ -31,7 +31,11 @@ import {CloneService} from './services/clone-service';
   }
 ])
 export class MisFrontend{
-  
+  constructor(leaveService:LeaveService) {
+    //The following method is being called here so that public holidays will be fetched from backend service and cached in LeaveService. The same values can be used throughout the application
+    // without having to make another network call.
+    leaveService.getAllHolidays();
+  }
 }
 
 bootstrap(<Type>MisFrontend, [ROUTER_PROVIDERS]);
