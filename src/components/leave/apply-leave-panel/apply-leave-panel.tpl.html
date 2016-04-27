@@ -1,3 +1,4 @@
+<public-holidays></public-holidays>
 You have following leaves available:<br/>
 <div>Planned: {{availableLeaves?.planned}}  Unplanned: {{availableLeaves?.unplanned}}  Compensatory off: {{availableLeaves?.compOff}} Borrowable: {{availableLeaves?.borrowable}}</div>
 
@@ -22,6 +23,9 @@ You have following leaves available:<br/>
 
   Leave reason: <textarea [(ngModel)]="appliedLeave.commentByApplicant"></textarea>
   <div [hidden]="!leaveOpenedByManager">Comment by manager: <textarea [(ngModel)]="appliedLeave.commentByManager"></textarea></div>
+  <alert [hidden]="areLeavesAvailable"  type="danger"><b>Insufficient leaves!</b></alert>
+  <alert [hidden]="!leaveAppliedSuccessfully"><b>Leave added!</b></alert>
+  <alert [hidden]="!errorWhileSavingLeave"><b>Leave couldn't be applied. Possible reason: leave duration conflicts with existing leaves</b></alert>
   <div><button type="submit" (click)="apply()">Apply</button></div>
   <div><button #c type="button" (click)="process(c.value)" value="Cancelled">Cancel</button></div>  
   <div><button #a type="button" [hidden]="!leaveOpenedByManager" (click)="process(c.value)" value="Approved">Approve</button></div>
