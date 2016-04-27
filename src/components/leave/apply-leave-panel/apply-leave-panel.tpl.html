@@ -1,0 +1,31 @@
+You have following leaves available:<br/>
+<div>Planned: {{available?.planned}}  Unplanned: {{available?.unplanned}}  Compensatory off: {{available?.compOff}} Borrowable: {{available?.borrowable}}</div>
+
+Apply leaves:
+<div>
+  Leave From: <input [value]="appliedLeave.leaveFrom" (change)="appliedLeave.leaveFrom=$event.target.value" type="date"><br/>
+  <input #f type="radio" (click)="appliedLeave.leaveFromHalf=f.value" [checked]="appliedLeave.leaveFromHalf==f.value" value="First"> First half
+  <input #s type="radio" (click)="appliedLeave.leaveFromHalf=s.value" [checked]="appliedLeave.leaveFromHalf==s.value" value="Second"> Second half  
+</div>
+<div>  
+  Leave To: <input [(ngModel)]="appliedLeave.leaveTo" type="date"><br/>
+  <input #f type="radio" (click)="appliedLeave.leaveToHalf=f.value" [checked]="appliedLeave.leaveToHalf==f.value" value="First"> First half
+  <input #s type="radio" (click)="appliedLeave.leaveToHalf=s.value" [checked]="appliedLeave.leaveToHalf==s.value" value="Second"> Second half
+</div>
+
+
+<select class="form-control" required [(ngModel)]="appliedLeave.leaveType" >
+  <option *ngFor="#leaveType of allLeaveTypes" [ngValue]="leaveType" >{{leaveType}}</option>
+</select>  
+
+<textarea [(ngModel)]="appliedLeave.commentByApplicant"></textarea>
+<div><button type="button" [ngClass]="{active: isOn, disabled: isDisabled}" (click)="apply()">Apply</button></div>
+<div><button type="button" (click)="clear()">Clear</button></div>
+<div><button #c type="button" (click)="process(c.value)" value="Cancelled">Cancel</button></div>
+
+<!-- add textarea for manager's comment and Reject and Approve buttons that is only visible if manager opens this page 
+  
+  <div><button #a type="button" (click)="process(c.value)" value="Approved">Approve</button></div>
+  <div><button #r type="button" (click)="process(c.value)" value="Rejected">Reject</button></div>  
+  
+  and hide Apply/cancel/clear buttons -->

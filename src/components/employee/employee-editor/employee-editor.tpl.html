@@ -1,24 +1,95 @@
 <!-- TODO -->
 <!-- This form should have controls appropriate to the fields. For example, Blood Group can be a drop down. Sex field can be a radio button. --> 
 <h3>Edit employee Details</h3>
-<div>First Name: <input [(ngModel)]="employee.firstName" id="firstName" type="text"></div> 
-<div>Middle Name: <input [(ngModel)]="employee.middleName" id="middleName" type="text"></div>
-<div>Last Name: <input [(ngModel)]="employee.lastName" id="lastName" type="text"></div>
-<div>Date of birth: <input [(ngModel)]="employee.birthDate" id="birthDate" type="text"></div>
-<div>Sex: <input [(ngModel)]="employee.sex" id="sex" type="text"></div> 
-<div>Blood group: <input [(ngModel)]="employee.bloodGroup" id="bloodGroup" type="text"></div>
-<div>Email: <input [(ngModel)]="employee.email" id="email" type="text"></div>
-<div>Date of joining: <input [(ngModel)]="employee.joiningDate" id="joiningDate" type="text"></div>
-<div>Probation period (in months): <input [(ngModel)]="employee.probationPeriodMonths" id="probationPeriodMonths" type="text"></div>
-<div>Date of release: <input [(ngModel)]="employee.releaseDate" id="releaseDate" type="text"></div>
-
-<div>PAN number: <input [(ngModel)]="employee.panNumber" id="panNumber" type="text"></div>
-<div>Passport Number: <input [(ngModel)]="employee.passportNumber" id="passportNumber" type="text"></div>
-<div>Passport expiry date: <input [(ngModel)]="employee.passportValidTill" id="passportValidTill" type="text"></div>
-
-<h4>Emergency contact person details:</h4>
-<div>Name: <input [(ngModel)]="employee.emergencyContactPerson" id="emergencyContactPerson" type="text"></div>
-<div>Contact number: <input [(ngModel)]="employee.emergencyContactPhoneNumber" id="emergencyContactPhoneNumber" type="text"></div>
-
-<div><button type="button" (click)="save()">Save</button></div>
-<div><button type="button" (click)="cancel()">Cancel</button></div>
+<form role="employyeeDetail" (ngSubmit)="save()">
+  <table CLASS="table table-striped input-group">
+    <tr>
+      <td>First Name: </td>
+      <td><span class="editable-text" contenteditable="true" [(contenteditableModel)]="employee.firstName"></span></td>
+    </tr>
+        <tr>
+      <td>Middle Name: </td>
+      <td><span class="editable-text" contenteditable="true" [(contenteditableModel)]="employee.middleName"></span></td>
+    </tr>
+        <tr>
+      <td>Last Name:</td>
+            <td><span class="editable-text" contenteditable="true" [(contenteditableModel)]="employee.lastName"></span></td>
+    </tr>
+        <tr>
+      <td>Date of birth:</td>
+      <td>
+        <datepicker ng-model="employee.birthDate" language="en" date-format="YYYY-MM-DD">
+      </td>
+    </tr>
+    <tr>
+      <td>Sex:</td>
+      <td>
+          <div class="btn-group">
+            <label class="btn btn-primary" [(ngModel)]="employee.sex" btnRadio="f">Female</label>
+            <label class="btn btn-primary" [(ngModel)]="employee.sex" btnRadio="m">Male</label>
+          </div>
+      </td>
+    </tr>
+        <tr>
+      <td>Blood group:</td>
+      <td>
+          <div class="btn-group">
+                <label class="btn btn-primary" [(ngModel)]="employee.bloodGroup" btnRadio="O-">O-</label>
+                <label class="btn btn-primary" [(ngModel)]="employee.bloodGroup" btnRadio="O+">O+</label>
+                <label class="btn btn-primary" [(ngModel)]="employee.bloodGroup" btnRadio="A-">A-</label>
+                <label class="btn btn-primary" [(ngModel)]="employee.bloodGroup" btnRadio="A+">A+</label>
+                <label class="btn btn-primary" [(ngModel)]="employee.bloodGroup" btnRadio="B-">B-</label>
+                <label class="btn btn-primary" [(ngModel)]="employee.bloodGroup" btnRadio="B+">B+</label>
+                <label class="btn btn-primary" [(ngModel)]="employee.bloodGroup" btnRadio="AB-">AB-</label>
+                <label class="btn btn-primary" [(ngModel)]="employee.bloodGroup" btnRadio="AB+">AB+</label>
+          </div>
+      </td>
+    </tr>
+        <tr>
+      <td>Email:</td>
+      <td><input [(ngModel)]="employee.email" id="email" required/></td>
+    </tr>
+        <tr>
+      <td>Date of joining:</td>
+      <td><input [(ngModel)]="employee.joiningDate" id="joiningDate" type="text"></td>
+    </tr>
+    <tr>
+      <td>Probation period (in months):</td>
+      <td><input [(ngModel)]="employee.probationPeriodMonths" id="probationPeriodMonths" type="text"></td>
+    </tr>
+        <tr>
+      <td>Date of release:</td>
+      <td><input [(ngModel)]="employee.releaseDate" id="releaseDate" type="text"></td>
+    </tr>
+        <tr>
+      <td>PAN number:</td>
+      <td><input [(ngModel)]="employee.panNumber" id="panNumber" type="text"></td>
+    </tr>
+        <tr>
+      <td>Passport Number:</td>
+      <td><input class="form-control" [(ngModel)]="employee.passportNumber" id="passportNumber" type="text"></td>
+    </tr>
+    <tr>
+      <td>Passport expiry date:</td>
+      <td><input [(ngModel)]="employee.passportValidTill" id="passportValidTill" type="text"></td>
+    </tr>
+    <tr>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+      <tr>
+      <td colspan="2">Emergency contact person details:</td>
+    </tr>
+        <tr>
+      <td>Name:</td>
+      <td><input [(ngModel)]="employee.emergencyContactPerson" id="emergencyContactPerson" type="text"></td>
+    </tr>
+        <tr>
+      <td>Contact number:</td>
+      <td><input [(ngModel)]="employee.emergencyContactPhoneNumber" id="emergencyContactPhoneNumber" type="text"></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><button class="btn btn-primary" type="submit" >Save</button>&nbsp;
+          <button class="btn btn-primary" type="button" (click)="cancel()">Cancel</button></td>
+  </table>
+</form>
