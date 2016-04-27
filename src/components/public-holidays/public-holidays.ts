@@ -19,6 +19,6 @@ export class PublicHolidaysComponent
     
   ngOnInit() 
   {
-    this.leaveService.getAllHolidays().subscribe(e => this.holidays = e);
+    this.holidays = this.leaveService.getAllHolidays();
   }
 }
