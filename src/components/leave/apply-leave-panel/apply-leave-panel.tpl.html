@@ -7,8 +7,8 @@ Apply leaves:
   <input #f type="radio" (click)="appliedLeave.leaveFromHalf=f.value" [checked]="appliedLeave.leaveFromHalf==f.value" value="First"> First half
   <input #s type="radio" (click)="appliedLeave.leaveFromHalf=s.value" [checked]="appliedLeave.leaveFromHalf==s.value" value="Second"> Second half  
 </div>
-<div>  
-  Leave To: <input [(ngModel)]="appliedLeave.leaveTo" type="date"><br/>
+<div>
+  Leave To: <input [value]="appliedLeave.leaveTo" (change)="appliedLeave.leaveTo=$event.target.value" type="date"><br/>
   <input #f type="radio" (click)="appliedLeave.leaveToHalf=f.value" [checked]="appliedLeave.leaveToHalf==f.value" value="First"> First half
   <input #s type="radio" (click)="appliedLeave.leaveToHalf=s.value" [checked]="appliedLeave.leaveToHalf==s.value" value="Second"> Second half
 </div>
