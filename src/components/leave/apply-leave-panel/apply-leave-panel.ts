@@ -6,6 +6,7 @@ import {LeaveService} from '../../../services/leave-service';
 import {EmployeeService} from '../../../services/employee-service';
 import {DATEPICKER_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 import {AfterContentInit} from 'angular2/core';
+declare var moment: any; //This is needed to make Typescript "happy". Ref: http://stackoverflow.com/a/35166209
 
 /**
  * This component is intended to be used both to apply leave and process the applied leaves by a manager.
@@ -25,7 +26,7 @@ export class ApplyLeavePanelComponent {
   }
   
   setDefaultLeave() {
-    let currentDate = new Date();
+    let currentDate:Date = moment().format("YYYY-MM-DD");
     
     let newLeave = new AppliedLeave();
     newLeave.applicationDate = currentDate;
