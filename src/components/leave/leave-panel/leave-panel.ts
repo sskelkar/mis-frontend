@@ -11,14 +11,12 @@ import {ApplyLeavePanelComponent} from '../apply-leave-panel/apply-leave-panel'
   directives: [ApplyLeavePanelComponent]
 })
 export class LeavePanelComponent {
-  private loggedInEmployee:Employee;
+  //private loggedInEmployee:Employee;
 
   constructor(private employeeService:EmployeeService) {
-    console.log("leave panel constructor");
   }
   
   ngOnInit() {
-    console.log("leave panel init");
-    this.employeeService.getLoggedInEmployee().subscribe(e => this.loggedInEmployee = e);
+    //this.employeeService.getLoggedInEmployee().subscribe(e => this.loggedInEmployee = e);
   }
 }

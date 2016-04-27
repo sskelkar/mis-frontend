@@ -4,54 +4,65 @@ import {AppliedLeave} from '../../../domains/applied-leave';
 import {AvailableLeaveCount} from '../../../domains/available-leave-count';
 import {LeaveService} from '../../../services/leave-service';
 import {EmployeeService} from '../../../services/employee-service';
-import {DROPDOWN_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 import {DATEPICKER_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 import {AfterContentInit} from 'angular2/core';
+declare var moment: any; //This is needed to make Typescript "happy". Ref: http://stackoverflow.com/a/35166209
+
+/**
+ * This component is intended to be used both to apply leave and process the applied leaves by a manager.
+ */
 @Component({
   selector: 'apply-leave',
   templateUrl: 'apply-leave-panel.tpl.html',
-  directives: [DROPDOWN_DIRECTIVES, DATEPICKER_DIRECTIVES]
+  directives: [DATEPICKER_DIRECTIVES]
 })
 export class ApplyLeavePanelComponent {
   private available:AvailableLeaveCount;
   private appliedLeave:AppliedLeave;
-  private allLeaveTypes:Array<string> = new Array();
+  private allLeaveTypes:Array<string> = ["Borrowed", "Compensatory Off", "Planned", "Unplanned"];
+  private loggedInEmployeeId;
   
-  isOn = false;
-  isDisabled = false;
-    
   constructor(private leaveService:LeaveService, private employeeService:EmployeeService) {
   }
   
   setDefaultLeave() {
-    let currentDate = new Date();
+    let currentDate:Date = moment().format("YYYY-MM-DD");
     
-    this.appliedLeave = new AppliedLeave();
-    this.appliedLeave.applicationDate = currentDate;
-    this.appliedLeave.leaveFromHalf = "first";
-    this.appliedLeave.leaveToHalf = "second";
-    this.appliedLeave.leaveFrom = currentDate;
-    this.appliedLeave.leaveTo = currentDate;    
-    this.appliedLeave.leaveType = "Planned";    
+    let newLeave = new AppliedLeave();
+    newLeave.applicationDate = currentDate;
+    newLeave.leaveFromHalf = "First";
+    newLeave.leaveToHalf = "Second";
+    newLeave.leaveFrom = currentDate;
+    newLeave.leaveTo = currentDate;    
+    newLeave.leaveType = "Planned";
+    
+    this.appliedLeave = newLeave;
   }
   
   isLeaveDurationValid():boolean {
     return false;
   }
   
-  save() {
-    
+  apply() {
+    console.log("applying!");
+    this.appliedLeave.employeeId = this.loggedInEmployeeId;
+    // this.appliedLeave.leaveDuration = ?
+    // this.appliedLeave.noOfWorkingDays = ?
+    this.appliedLeave.leaveStatus = "Pending";
   }
   
-  cancel() {
+  clear() {
     this.setDefaultLeave();
+  }
+  
+  process(status:string) {
+    this.appliedLeave.leaveStatus = status;
   }
   
   ngOnInit() {
     this.setDefaultLeave();
     
-    let loggedInEmployeeId = this.employeeService.getLoggedInEmployeeId();    
-    this.leaveService.getAvailableLeaves(loggedInEmployeeId).subscribe(a => this.available = a);
-   
+    this.loggedInEmployeeId = this.employeeService.getLoggedInEmployeeId();    
+    this.leaveService.getAvailableLeaves(this.loggedInEmployeeId).subscribe(a => this.available = a);   
   }
 }

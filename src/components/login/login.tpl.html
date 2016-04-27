@@ -3,9 +3,10 @@
 <!-- implement "Remember me" checkbox -->
 <!-- implement "Forgot password" -->
 
+<div class="header-label">Maxxton MIS 2.0</div>
 <div class="login jumbotron center-block">
-  <form role="form" (submit)="login(userName, password)">
-    <alert [hidden]="loggedInUserId >= 0"  type="danger">Invalid credentials</alert>
+  <form role="form" (ngSubmit)="login(userName, password)">
+    <alert *ngIf="loggedInUserId < 0"  type="danger" clossable>Invalid credentials</alert>
     <input [(ngModel)]="userName" id="userName" type="text" class="form-control" placeholder="Username"><br/>
     <input [(ngModel)]="password" id="password" type="password" class="form-control" placeholder="Password">
     <button type="submit" class='btn btn-primary'>Login</button>
