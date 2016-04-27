@@ -1,8 +1,47 @@
+@import "settings";
+@import url(https://fonts.googleapis.com/css?family=Bitter);
+
+body {
+  background-color: rgba(249, 196, 100, 1) !important;
+}
+
 div.login {
+  background-color: rgba(252, 246, 246, 1) !important;
+  font-family: 'Bitter', serif;
   width: 40%;
   padding: 2rem;
+  border: 1px;
+  border-radius: 5px;
   button.btn {
     margin-top: 2rem;
+    font-family: inherit;
   }
 }
 
+div.header-label {
+  font-family: 'Bitter', serif;
+  text-align: center;
+  font-size: 4rem;
+}
+
+div.main-container {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+    background-color: $white-smoke;
+}
+
+div.profile {
+    position: relative;
+    float: right;
+    border-left: .1rem solid #eee;
+}
+
+div.welcome-msg {
+    position: relative;
+    padding: 1rem;
+}
+
+span.editable-text {
+    display: block;
+    width: auto;
+}

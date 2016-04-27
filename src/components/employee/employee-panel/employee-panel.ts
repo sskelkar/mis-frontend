@@ -37,12 +37,7 @@ export class EmployeePanelComponent {
   
   ngOnInit() {
     console.log("setting id: "+this.routeParams.get('id'));
-    this.employeeService.setLoggedInEmployeeId(this.routeParams.get('id')).subscribe(e => {
-      this.loggedInEmployee = e;
+     this.employeeService.getLoggedInEmployee().subscribe(e => { this.loggedInEmployee = e;
     });
-  }
-  
-  logout() {
-    
   }
 }
