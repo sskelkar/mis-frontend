@@ -13,7 +13,7 @@ import {Employee} from '../../domains/employee';
 @RouteConfig ([
   {
     path: '/...',  
-    name: 'EmployeeHome', 
+    name: 'EmployeePanel', 
     component: EmployeePanelComponent,
     useAsDefault: true
   }  
@@ -25,7 +25,6 @@ export class HomePanelComponent {
   }
   
   ngOnInit() {
-    console.log("setting id: "+this.routeParams.get('id'));
     this.employeeService.setLoggedInEmployeeId(this.routeParams.get('id')).subscribe(e => {
       this.loggedInEmployee = e;
     });
