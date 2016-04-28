@@ -5,12 +5,12 @@ You have following leaves available:<br/>
 <form>
   Apply leaves:
   <div>
-    Leave From: <input required [value]="appliedLeave.leaveFrom" (change)="appliedLeave.leaveFrom=$event.target.value" type="date"><br/>
+    Leave From: <input type="date" required [(ngModel)]="appliedLeave.leaveFrom"><br/>
     <input #f type="radio" (click)="appliedLeave.leaveFromHalf=f.value" [checked]="appliedLeave.leaveFromHalf==f.value" value="First"> First half
     <input #s type="radio" (click)="appliedLeave.leaveFromHalf=s.value" [checked]="appliedLeave.leaveFromHalf==s.value" value="Second"> Second half  
   </div>
   <div>
-    Leave To: <input required [value]="appliedLeave.leaveTo" (change)="appliedLeave.leaveTo=$event.target.value" type="date"><br/>
+    Leave To: <input type="date" required [(ngModel)]="appliedLeave.leaveTo" min="{{appliedLeave.leaveFrom}}"><br/>
     <input #f type="radio" (click)="appliedLeave.leaveToHalf=f.value" [checked]="appliedLeave.leaveToHalf==f.value" value="First"> First half
     <input #s type="radio" (click)="appliedLeave.leaveToHalf=s.value" [checked]="appliedLeave.leaveToHalf==s.value" value="Second"> Second half
   </div>
