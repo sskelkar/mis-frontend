@@ -1,11 +1,13 @@
 import {Component} from 'angular2/core';
+import {NgForm} from 'angular2/common'; 
 import {Employee} from '../../../domains/employee';
 import {AppliedLeave} from '../../../domains/applied-leave';
 import {AvailableLeaveCount} from '../../../domains/available-leave-count';
 import {LeaveService} from '../../../services/leave-service';
 import {EmployeeService} from '../../../services/employee-service';
-import {DATEPICKER_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 import {AfterContentInit} from 'angular2/core';
+import {CloneService} from '../../../services/clone-service';
+import {PublicHolidaysComponent} from '../../public-holidays/public-holidays';
 declare var moment: any; //This is needed to make Typescript "happy". Ref: http://stackoverflow.com/a/35166209
 
 /**
@@ -14,18 +16,38 @@ declare var moment: any; //This is needed to make Typescript "happy". Ref: http:
 @Component({
   selector: 'apply-leave',
   templateUrl: 'apply-leave-panel.tpl.html',
-  directives: [DATEPICKER_DIRECTIVES]
+  directives: [PublicHolidaysComponent]
 })
 export class ApplyLeavePanelComponent {
-  private available:AvailableLeaveCount;
-  private appliedLeave:AppliedLeave;
-  private allLeaveTypes:Array<string> = ["Borrowed", "Compensatory Off", "Planned", "Unplanned"];
+  private availableLeaves:AvailableLeaveCount;
+  private countCopy:AvailableLeaveCount;
+  private appliedLeave:AppliedLeave; //this will hold the new leave being applied or the existing leave being edited
+  private leaveCopy:AppliedLeave; //holds a copy of "appliedLeave" field, to be used to clear the changes.
+  private allLeaveTypes:Array<string> = ["Borrowed", "Compensatory Off", "Leave Without Pay", "Maternity", "Paternity", "Planned", "Unplanned"];
   private loggedInEmployeeId;
-  
-  constructor(private leaveService:LeaveService, private employeeService:EmployeeService) {
+  private areDatesValid:boolean = true;
+  private leaveOpenedByManager = false;
+  private areLeavesAvailable = true;
+  private leaveAppliedSuccessfully = false;
+  private errorWhileSavingLeave = false;
+  constructor(
+    private leaveService:LeaveService, 
+    private employeeService:EmployeeService, 
+    private leaveCloneService:CloneService<AppliedLeave>,
+    private countCloneService:CloneService<AvailableLeaveCount>) {
   }
   
-  setDefaultLeave() {
+  ngOnInit() {
+    this.loggedInEmployeeId = this.employeeService.getLoggedInEmployeeId();  
+    this.appliedLeave = this.createNewLeaveApplication();
+    this.leaveCopy = this.leaveCloneService.clone(this.appliedLeave);
+    this.leaveService.getAvailableLeaves(this.loggedInEmployeeId).subscribe(a => {
+      this.availableLeaves = a;
+      this.countCopy = this.countCloneService.clone(a);
+    });
+  }
+    
+  createNewLeaveApplication():AppliedLeave {
     let currentDate:Date = moment().format("YYYY-MM-DD");
     
     let newLeave = new AppliedLeave();
@@ -35,34 +57,152 @@ export class ApplyLeavePanelComponent {
     newLeave.leaveFrom = currentDate;
     newLeave.leaveTo = currentDate;    
     newLeave.leaveType = "Planned";
-    
-    this.appliedLeave = newLeave;
+    newLeave.employeeId = this.loggedInEmployeeId;
+    newLeave.leaveStatus = "Pending";
+    return newLeave;
   }
-  
-  isLeaveDurationValid():boolean {
-    return false;
-  }
-  
+   
   apply() {
-    console.log("applying!");
-    this.appliedLeave.employeeId = this.loggedInEmployeeId;
-    // this.appliedLeave.leaveDuration = ?
-    // this.appliedLeave.noOfWorkingDays = ?
-    this.appliedLeave.leaveStatus = "Pending";
+    this.areDatesValid = this.validateDates();
+
+    if(this.areDatesValid) {
+      
+      if(this.countAppliedLeaves()) {
+        this.leaveService.applyForLeave(this.appliedLeave).subscribe(
+          s => this.leaveAppliedSuccessfully = true, 
+          e => this.errorWhileSavingLeave = true);
+      }
+    }
   }
   
   clear() {
-    this.setDefaultLeave();
+    this.appliedLeave = this.leaveCloneService.clone(this.leaveCopy);
+    this.availableLeaves = this.countCloneService.clone(this.countCopy);
+    this.areDatesValid = true;
   }
   
   process(status:string) {
     this.appliedLeave.leaveStatus = status;
+    
+    // TODO when leaves are cancelled, available leave count must be updated.
   }
   
-  ngOnInit() {
-    this.setDefaultLeave();
+  /**
+   * Dates are invalid if "leave from"" is after "leave to". If leave from and to are same date, then leaveFromHalf cannot be after leaveToHalf.
+   */
+  validateDates():boolean {
+    let leaveFrom = moment(this.appliedLeave.leaveFrom);
+    let leaveTo = moment(this.appliedLeave.leaveTo);
+        
+    if(leaveFrom.isAfter(leaveTo))
+      return false;
+    if(leaveFrom.isSame(leaveTo) && this.appliedLeave.leaveFromHalf === "Second" && this.appliedLeave.leaveToHalf === "First")
+      return false;
+    else
+      return true; 
+  }
+  
+  /**
+   * Function to calculate the number of working days for which the leave is being applied. This is calculated by excluding weekends and
+   * public holidays from the leave period. Then we need to check if sufficient number of leaves of the type being applied for is available for
+   * this employee.
+   * 
+   * Returns true if the applied leave is valid on all counts.
+   */
+  countAppliedLeaves():boolean {
+    let leaveFrom = moment(this.appliedLeave.leaveFrom);
+    let leaveTo = moment(this.appliedLeave.leaveTo);
+    this.appliedLeave.leaveDuration = 0;
+    this.appliedLeave.noOfWorkingDays = 0;   
     
-    this.loggedInEmployeeId = this.employeeService.getLoggedInEmployeeId();    
-    this.leaveService.getAvailableLeaves(this.loggedInEmployeeId).subscribe(a => this.available = a);   
+    // when both start and end dates are the same
+    if(leaveFrom.isSame(leaveTo)) {
+      if(this.isWorkingDay(leaveFrom)) {
+        this.appliedLeave.leaveDuration += 1;
+
+        if(this.appliedLeave.leaveFromHalf === "First" && this.appliedLeave.leaveToHalf === "Second") {
+          this.appliedLeave.noOfWorkingDays = 1;
+        }
+        else
+          this.appliedLeave.noOfWorkingDays = 0.5;
+      }     
+    }
+    else {
+      // add count for start date
+      let currentDate = moment(leaveFrom);
+      if(this.isWorkingDay(currentDate)) {
+        this.appliedLeave.leaveDuration += 1;
+        if(this.appliedLeave.leaveFromHalf === "First") {
+          this.appliedLeave.noOfWorkingDays = 1;
+        }
+        else
+          this.appliedLeave.noOfWorkingDays = 0.5;
+      }       
+      
+      // add count for intermediate days
+      currentDate = currentDate.add(1, 'days');
+      while(currentDate.isBefore(leaveTo)) {
+        this.appliedLeave.leaveDuration += 1;
+        if(this.isWorkingDay(currentDate)) {
+          this.appliedLeave.noOfWorkingDays += 1;            
+        }
+        currentDate = currentDate.add(1, 'days');
+      }
+      
+      // add leave for end date
+      if(this.isWorkingDay(currentDate)) {
+        this.appliedLeave.leaveDuration += 1;
+        if(this.appliedLeave.leaveToHalf === "Second") {
+          this.appliedLeave.noOfWorkingDays += 1;
+        }
+        else
+          this.appliedLeave.noOfWorkingDays += 0.5;
+      }     
+    }
+    
+    return this.appliedLeave.noOfWorkingDays > 0 && this.areLeavesAvailableForSelectedType();
+  }
+  
+  /**
+   * Method to check available leave count for planned/unplanned/compoff/borrowable to decide the employee has suffecient no of leaves left.
+   * If leaves are available, deduct them from available leave count. 
+   * This method also sets the "areLeavesAvailable" flag.
+   */
+  areLeavesAvailableForSelectedType():boolean {
+    let result = false;
+    
+    if(this.appliedLeave.leaveType === "Planned") {
+      if(this.availableLeaves.planned >= this.appliedLeave.noOfWorkingDays) {
+        result = true;
+        this.availableLeaves.planned -= this.appliedLeave.noOfWorkingDays;
+      }      
+    }
+    else if(this.appliedLeave.leaveType === "Unplanned") {
+      if(this.availableLeaves.unplanned >= this.appliedLeave.noOfWorkingDays) {
+        result = true;
+        this.availableLeaves.unplanned -= this.appliedLeave.noOfWorkingDays;
+      } 
+    }
+    else if(this.appliedLeave.leaveType === "Compensatory Off") {
+      if(this.availableLeaves.compOff >= this.appliedLeave.noOfWorkingDays) {
+        result = true;
+        this.availableLeaves.compOff -= this.appliedLeave.noOfWorkingDays;
+      } 
+    }
+    else if(this.appliedLeave.leaveType === "Borrowed") {
+      if(this.availableLeaves.borrowable >= this.appliedLeave.noOfWorkingDays) {
+        result = true;
+        this.availableLeaves.borrowable = 0; // you can only borrow once
+      }
+    }
+    else
+      result = true;
+      
+    this.areLeavesAvailable = result;
+    return result;  
+  }
+  
+  isWorkingDay(date:any):boolean {
+    return (!(date.isoWeekday() == 6 || date.isoWeekday() == 7 || this.leaveService.isPublicHoliday(date)));
   }
 }

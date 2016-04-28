@@ -10,6 +10,7 @@ export class EmployeeService {
   private employeeServiceUrl = 'http://localhost:71/mis/employee';
   private loggedInEmployeeId = "loggedInEmployeeId";
   constructor(private http:Http) {
+    localStorage.removeItem(this.loggedInEmployeeId);
     
   }
   

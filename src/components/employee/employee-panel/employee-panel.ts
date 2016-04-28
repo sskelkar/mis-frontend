@@ -1,5 +1,5 @@
 import {Component} from 'angular2/core';
-import {RouterOutlet, RouteConfig, RouteParams, ROUTER_DIRECTIVES} from 'angular2/router';
+import {RouterOutlet, RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
 import {EmployeeDetailComponent} from '../employee-detail/employee-detail'
 import {EmployeeEditorComponent} from '../employee-editor/employee-editor'
 import {EmployeeHistoryComponent} from '../employee-history/employee-history-component'
@@ -43,13 +43,11 @@ import {Employee} from '../../../domains/employee';
 ])
 export class EmployeePanelComponent {
   private loggedInEmployee:Employee = <Employee>{};
-  constructor(private employeeService:EmployeeService, private routeParams:RouteParams) {
+  constructor(private employeeService:EmployeeService) {
     
   }
   
   ngOnInit() {
-    console.log("setting id: "+this.routeParams.get('id'));
-     this.employeeService.getLoggedInEmployee().subscribe(e => { this.loggedInEmployee = e;
-    });
+     this.employeeService.getLoggedInEmployee().subscribe(e => this.loggedInEmployee = e);
   }
 }
