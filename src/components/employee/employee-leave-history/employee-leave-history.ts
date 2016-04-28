@@ -4,9 +4,9 @@ import {LeaveService} from '../../../services/leave-service';
 import {EmployeeService} from '../../../services/employee-service';
 @Component({
   selector: 'employee-history',
-  templateUrl : `employee-history.tpl.html`,
+  templateUrl : `employee-leave-history.tpl.html`,
 })
-export class EmployeeHistoryComponent{
+export class EmployeeLeaveHistoryComponent{
   private appliedLeave:Array<AppliedLeave>;
   
   constructor(private leaveService:LeaveService, private employeeService:EmployeeService){
