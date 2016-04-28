@@ -7,19 +7,28 @@
       <td>First Name: </td>
       <td><span class="editable-text" contenteditable="true" [(contenteditableModel)]="employee.firstName"></span></td>
     </tr>
-        <tr>
+    <tr>
       <td>Middle Name: </td>
       <td><span class="editable-text" contenteditable="true" [(contenteditableModel)]="employee.middleName"></span></td>
     </tr>
-        <tr>
+    <tr>
       <td>Last Name:</td>
-            <td><span class="editable-text" contenteditable="true" [(contenteditableModel)]="employee.lastName"></span></td>
+      <td><span class="editable-text" contenteditable="true" [(contenteditableModel)]="employee.lastName"></span></td>
     </tr>
-        <tr>
+    <tr>
       <td>Date of birth:</td>
       <td>
         <datepicker ng-model="employee.birthDate" language="en" date-format="YYYY-MM-DD">
       </td>
+    </tr>
+    <tr>
+      <td>Username:</td>
+      <td>{{employee?.userName}}</td>
+    </tr>
+    <tr>
+      <td>Password:</td>
+      <!--<td>**</td>-->
+      <td>******** <a role="button" [routerLink]="['PasswordEditor']">change password</a></td>
     </tr>
     <tr>
       <td>Sex:</td>
@@ -45,7 +54,7 @@
           </div>
       </td>
     </tr>
-        <tr>
+    <tr>
       <td>Email:</td>
       <td><input [(ngModel)]="employee.email" id="email" required/></td>
     </tr>
