@@ -3,6 +3,7 @@ import {RouterOutlet, RouteConfig, RouteParams, ROUTER_DIRECTIVES} from 'angular
 import {EmployeeDetailComponent} from '../employee-detail/employee-detail'
 import {EmployeeEditorComponent} from '../employee-editor/employee-editor'
 import {EmployeeHistoryComponent} from '../employee-history/employee-history-component'
+import {PasswordEditorComponent} from '../employee-editor/password-editor'
 import {LeavePanelComponent} from '../../leave/leave-panel/leave-panel';
 import {EmployeeService} from '../../../services/employee-service';
 import {Employee} from '../../../domains/employee';
@@ -23,6 +24,11 @@ import {Employee} from '../../../domains/employee';
     path: '/edit', 
     name: 'EmployeeEditor', 
     component: EmployeeEditorComponent
+  },
+  {
+    path: '/changepassword', 
+    name: 'PasswordEditor', 
+    component: PasswordEditorComponent
   },
   {
     path: '/leaves', 
