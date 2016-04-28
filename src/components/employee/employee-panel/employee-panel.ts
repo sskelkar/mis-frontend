@@ -2,6 +2,7 @@ import {Component} from 'angular2/core';
 import {RouterOutlet, RouteConfig, RouteParams, ROUTER_DIRECTIVES} from 'angular2/router';
 import {EmployeeDetailComponent} from '../employee-detail/employee-detail'
 import {EmployeeEditorComponent} from '../employee-editor/employee-editor'
+import {EmployeeHistoryComponent} from '../employee-history/employee-history-component'
 import {LeavePanelComponent} from '../../leave/leave-panel/leave-panel';
 import {EmployeeService} from '../../../services/employee-service';
 import {Employee} from '../../../domains/employee';
@@ -27,6 +28,11 @@ import {Employee} from '../../../domains/employee';
     path: '/leaves', 
     name: 'LeavePanel', 
     component: LeavePanelComponent
+  },
+  {
+    path: '/history', 
+    name: 'EmployeeHistory', 
+    component: EmployeeHistoryComponent
   }  
 ])
 export class EmployeePanelComponent {
