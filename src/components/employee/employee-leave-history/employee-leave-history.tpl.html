@@ -1,0 +1,27 @@
+<h1>Employee leave history</h1>
+<div class="table-responsive">
+<table class="table table-bordered">
+    <tr>
+        <td>employeeId</td>
+        <td>leaveFrom</td>
+        <td>leaveTo</td>
+        <td>leaveDuration</td>
+        <td>leaveStatus</td>
+        <td>commentByManager</td>
+        <td>leaveFromHalf</td>
+        <td>leaveToHalf</td>
+        <td>commentByApplicant</td>
+        </tr>
+                <tr *ngFor="#item of appliedLeave">
+                    <td>{{item?.employeeId}}</td>
+                <td>{{item?.leaveFrom}}</td>
+                <td>{{item?.leaveTo}}</td>
+                <td>{{item?.leaveDuration}}</td>
+                <td>{{item?.leaveStatus}}</td>
+                <td>{{item?.commentByManager}}</td>
+                <td>{{item?.leaveFromHalf}}</td>
+                <td>{{item?.leaveToHalf}}</td>
+                <td>{{item?.commentByApplicant}}</td>
+                </tr>
+</table>
+</div>

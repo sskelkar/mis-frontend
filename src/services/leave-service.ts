@@ -17,13 +17,18 @@ export class LeaveService {
   private publicHolidays:Array<PublicHoliday> = [];
   
   constructor(private http:Http) {
+    
   }
   
   getAvailableLeaves(id:any):Observable<AvailableLeaveCount> {
     let url = this.leaveServiceUrl + "/available?employeeId=" + id;
-    return this.http.get(url).map(res => res.json());
+    return this.http.get(this.leaveServiceUrl + "/available?employeeId=" + id).map(res => res.json());
   }
   
+  getEmployeeLeavesHistory(id:any):Observable<Array<AppliedLeave>>{
+    let url = this.leaveServiceUrl + "/history?employeeId=" + id;
+    return this.http.get(url).map(res =>res.json());
+  }
   /**
    * Method to fetch public holidays from leave-service. The fetched leaves will be stored in publicHolidays variable. The same values will be returned on each subsequent invocation.
    */
