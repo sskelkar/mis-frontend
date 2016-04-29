@@ -1,6 +1,6 @@
 import {Component} from 'angular2/core';
-import {LeaveService} from '../../services/leave-service';
-import {PublicHoliday} from '../../domains/public-holiday';
+import {LeaveService} from '../../../services/leave-service';
+import {PublicHoliday} from '../../../domains/public-holiday';
 
 @Component({
   selector :'public-holidays',
