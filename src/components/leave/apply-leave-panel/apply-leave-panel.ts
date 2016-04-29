@@ -8,6 +8,7 @@ import {EmployeeService} from '../../../services/employee-service';
 import {AfterContentInit} from 'angular2/core';
 import {CloneService} from '../../../services/clone-service';
 import {PublicHolidaysComponent} from '../../public-holidays/public-holidays';
+import {Alert, BUTTON_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 declare var moment: any; //This is needed to make Typescript "happy". Ref: http://stackoverflow.com/a/35166209
 
 /**
@@ -16,7 +17,7 @@ declare var moment: any; //This is needed to make Typescript "happy". Ref: http:
 @Component({
   selector: 'apply-leave',
   templateUrl: 'apply-leave-panel.tpl.html',
-  directives: [PublicHolidaysComponent]
+  directives: [PublicHolidaysComponent, Alert, BUTTON_DIRECTIVES]
 })
 export class ApplyLeavePanelComponent {
   private availableLeaves:AvailableLeaveCount;
@@ -25,11 +26,15 @@ export class ApplyLeavePanelComponent {
   private leaveCopy:AppliedLeave; //holds a copy of "appliedLeave" field, to be used to clear the changes.
   private allLeaveTypes:Array<string> = ["Borrowed", "Compensatory Off", "Leave Without Pay", "Maternity", "Paternity", "Planned", "Unplanned"];
   private loggedInEmployeeId;
+  
+  // some flags to show alerts in UI on various conditions
   private areDatesValid:boolean = true;
   private leaveOpenedByManager = false;
+  private isExistingLeave = false;
   private areLeavesAvailable = true;
   private leaveAppliedSuccessfully = false;
   private errorWhileSavingLeave = false;
+  
   constructor(
     private leaveService:LeaveService, 
     private employeeService:EmployeeService, 
@@ -75,10 +80,13 @@ export class ApplyLeavePanelComponent {
     }
   }
   
-  clear() {
+  reset() {
     this.appliedLeave = this.leaveCloneService.clone(this.leaveCopy);
     this.availableLeaves = this.countCloneService.clone(this.countCopy);
     this.areDatesValid = true;
+    this.areLeavesAvailable = true;
+    this.errorWhileSavingLeave = false;
+    this.leaveAppliedSuccessfully = false;
   }
   
   process(status:string) {
