@@ -1,6 +1,4 @@
 export class AvailableLeaveCount {
-  planned: number;
-  unplanned: number;
-  compOff: number;
-  borrowable: number;
+  public leaveType: string;
+  public count: number;
 }

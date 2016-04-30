@@ -22,7 +22,13 @@ export class LeaveService {
   
   getAvailableLeaves(id:any):Observable<AvailableLeaveCount> {
     let url = this.leaveServiceUrl + "/available?employeeId=" + id;
-    return this.http.get(this.leaveServiceUrl + "/available?employeeId=" + id).map(res => res.json());
+    return this.http.get(url).map(res => res.json());
+  }
+  
+  getAvailableLeavesNew(id:any):Observable<Array<AvailableLeaveCount>> {
+    let url = this.leaveServiceUrl + "/availableNew?employeeId=" + id;
+    console.log("returned " + this.http.get(url));
+    return this.http.get(url).map(res => res.json());
   }
   
   getEmployeeLeavesHistory(id:any):Observable<Array<AppliedLeave>>{

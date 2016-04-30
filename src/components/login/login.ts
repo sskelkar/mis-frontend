@@ -17,7 +17,7 @@ export class LoginComponent {
   login(username:String, password:String) {
     // TODO: implement this properly!
     if(username == "s" && password == "s") {
-      this.loggedInUserId = 21;
+      this.loggedInUserId = 1;
       this.router.navigate(['HomePanel', {id: this.loggedInUserId}]);
     }
     else {
