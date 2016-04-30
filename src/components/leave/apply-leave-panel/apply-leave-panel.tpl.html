@@ -1,35 +1,78 @@
 <public-holidays></public-holidays>
-You have following leaves available:<br/>
-<div>Planned: {{availableLeaves?.planned}}  Unplanned: {{availableLeaves?.unplanned}}  Compensatory off: {{availableLeaves?.compOff}} Borrowable: {{availableLeaves?.borrowable}}</div>
-
-<form>
-  Apply leaves:
-  <div>
-    Leave From: <input type="date" required [(ngModel)]="appliedLeave.leaveFrom"><br/>
-    <input #f type="radio" (click)="appliedLeave.leaveFromHalf=f.value" [checked]="appliedLeave.leaveFromHalf==f.value" value="First"> First half
-    <input #s type="radio" (click)="appliedLeave.leaveFromHalf=s.value" [checked]="appliedLeave.leaveFromHalf==s.value" value="Second"> Second half  
+<div class="panel panel-default">
+  <div class="panel-heading"><h4>You have following leaves available:</h4></div>
+  <div class="panel-body">
+    <h5>
+      Planned:<span class="label label-default">{{availableLeaves?.planned}}  </span>
+      Unplanned:<span class="label label-default">{{availableLeaves?.unplanned}}  </span>
+      Compensatory off:<span class="label label-default">{{availableLeaves?.compOff}}  </span>
+      Borrowable:<span class="label label-default">{{availableLeaves?.borrowable}}  </span>
+    </h5>
   </div>
-  <div>
-    Leave To: <input type="date" required [(ngModel)]="appliedLeave.leaveTo" min="{{appliedLeave.leaveFrom}}"><br/>
-    <input #f type="radio" (click)="appliedLeave.leaveToHalf=f.value" [checked]="appliedLeave.leaveToHalf==f.value" value="First"> First half
-    <input #s type="radio" (click)="appliedLeave.leaveToHalf=s.value" [checked]="appliedLeave.leaveToHalf==s.value" value="Second"> Second half
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading"><h4>Application form</h4></div>
+  <div class="panel-body">
+    <form class="apply">
+      <ul class="list-group">
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-md-4">
+              <div><b>From:</b></div>
+              <div><input type="date" required [(ngModel)]="appliedLeave.leaveFrom"></div>
+              <div class="btn-group">
+                <label class="btn btn-primary" [(ngModel)]="appliedLeave.leaveFromHalf" btnRadio="First">First Half</label>
+                <label class="btn btn-primary" [(ngModel)]="appliedLeave.leaveFromHalf" btnRadio="Second">Second Half</label>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div><b>To:</b> </div>
+              <div><input type="date" required [(ngModel)]="appliedLeave.leaveTo" min="{{appliedLeave.leaveFrom}}"></div>
+              <div class="btn-group">
+                <label class="btn btn-primary" [(ngModel)]="appliedLeave.leaveToHalf" btnRadio="First">First Half</label>
+                <label class="btn btn-primary" [(ngModel)]="appliedLeave.leaveToHalf" btnRadio="Second">Second Half</label>
+              </div>      
+            </div>
+          </div>
+          <alert [hidden]="areDatesValid"  class="alert alert-danger"><b>Leave From</b> cannot be after <b>Leave To</b>!</alert>          
+        </li>
+        <li class="list-group-item">
+          <b>Leave type:   </b>
+          <select class="form-control" [(ngModel)]="appliedLeave.leaveType">
+            <option *ngFor="#leave of allLeaveTypes" [ngValue]="leave" >{{leave}}</option>
+          </select>  
+        </li>
+        <li class="list-group-item">
+          <b>Leave reason:   </b> <textarea [(ngModel)]="appliedLeave.commentByApplicant"></textarea>
+        </li>
+        <span [hidden]="!isExistingLeave || !leaveOpenedByManager">
+          <li class="list-group-item">
+            <b>Manager comment:   </b> <textarea [(ngModel)]="appliedLeave.commentByManager"></textarea>
+          </li>  
+        </span>      
+        <li class="list-group-item">
+          <alert [hidden]="areLeavesAvailable"  type="danger"><b>Insufficient leaves!</b></alert>
+          <alert [hidden]="!leaveAppliedSuccessfully" class="alert alert-success"><b>Leave added!</b></alert>
+          <alert [hidden]="!errorWhileSavingLeave" type="danger"><b>Leave couldn't be applied. Possible reason: leave duration conflicts with existing leaves</b></alert>
+                  
+          <div>  
+            <span [hidden]="isExistingLeave">
+              <button class="btn btn-primary" type="submit" (click)="apply()">Apply</button>    
+              <button class="btn btn-primary" type="button" (click)="reset()">Reset</button>   
+            </span>  
+            <span [hidden]="!isExistingLeave">                
+              <span [hidden]="leaveOpenedByManager">            
+                <button class="btn btn-primary" #c type="button" (click)="process(c.value)" value="Cancelled">Cancel</button>
+              </span>         
+              <span [hidden]="!leaveOpenedByManager">
+                <button class="btn btn-primary" #a type="button" (click)="process(c.value)" value="Approved">Approve</button>
+                <button class="btn btn-primary" #r type="button" (click)="process(c.value)" value="Rejected">Reject</button>
+              </span>
+            </span>
+          </div>
+        </li>
+      </ul>
+    </form>
   </div>
-
-  <alert [hidden]="areDatesValid"  type="danger"><b>Leave From</b> cannot be after <b>Leave To</b>!</alert>
-
-  <select class="form-control" [(ngModel)]="appliedLeave.leaveType">
-    <option *ngFor="#leave of allLeaveTypes" [ngValue]="leave" >{{leave}}</option>
-  </select>  
-
-  Leave reason: <textarea [(ngModel)]="appliedLeave.commentByApplicant"></textarea>
-  <div [hidden]="!leaveOpenedByManager">Comment by manager: <textarea [(ngModel)]="appliedLeave.commentByManager"></textarea></div>
-  <alert [hidden]="areLeavesAvailable"  type="danger"><b>Insufficient leaves!</b></alert>
-  <alert [hidden]="!leaveAppliedSuccessfully"><b>Leave added!</b></alert>
-  <alert [hidden]="!errorWhileSavingLeave"><b>Leave couldn't be applied. Possible reason: leave duration conflicts with existing leaves</b></alert>
-  <div><button type="submit" (click)="apply()">Apply</button></div>
-  <div><button #c type="button" (click)="process(c.value)" value="Cancelled">Cancel</button></div>  
-  <div><button #a type="button" [hidden]="!leaveOpenedByManager" (click)="process(c.value)" value="Approved">Approve</button></div>
-  <div><button #r type="button" [hidden]="!leaveOpenedByManager" (click)="process(c.value)" value="Rejected">Reject</button></div>   
-  <div><button type="button" (click)="clear()">Reset</button></div>
-</form>
+</div>
 

@@ -45,3 +45,29 @@ span.editable-text {
     display: block;
     width: auto;
 }
+
+form.apply {
+  label.btn {
+    font-size:10px;
+    margin-top: 5px;
+  }
+  label.btn.btn-primary {
+    background-color: #5F7A92;
+    height: 24px;
+  }
+  label.btn.btn-primary.active {
+    background-color: #0B3C67;
+  } 
+}
+
+select.form-control {
+  width: 183px
+}
+
+button.btn.btn-primary {
+  margin-left: 2px;
+  margin-right: 2px;
+}
+textarea {
+  height: 24px;
+}
