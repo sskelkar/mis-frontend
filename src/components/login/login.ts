@@ -1,11 +1,11 @@
 import {Component} from 'angular2/core';
 import {Router} from 'angular2/router';
-import {Alert, BUTTON_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
+import {AlertComponent, BUTTON_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 
 @Component({
   selector: 'login',
   templateUrl: `login.tpl.html`,
-  directives: [Alert, BUTTON_DIRECTIVES]
+  directives: [AlertComponent, BUTTON_DIRECTIVES]
 })
 export class LoginComponent {
   private loggedInUserId:number = 0;

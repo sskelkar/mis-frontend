@@ -3,7 +3,7 @@ import {FORM_PROVIDERS, FormBuilder, Validators} from 'angular2/common';
 import {Employee} from '../../../domains/employee';
 import {EmployeeService} from '../../../services/employee-service';
 import {CloneService} from '../../../services/clone-service';
-import {Alert, BUTTON_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
+import {AlertComponent, BUTTON_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 import {Router, RouteParams, ROUTER_DIRECTIVES} from 'angular2/router';
 
 
@@ -11,7 +11,7 @@ import {Router, RouteParams, ROUTER_DIRECTIVES} from 'angular2/router';
   selector: 'password-editor',
   templateUrl : `password-editor.tpl.html`,
   providers: [CloneService],
-  directives: [Alert, ROUTER_DIRECTIVES, BUTTON_DIRECTIVES]
+  directives: [AlertComponent, ROUTER_DIRECTIVES, BUTTON_DIRECTIVES]
 })
 export class PasswordEditorComponent {
   employee:Employee = <Employee>{};
