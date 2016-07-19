@@ -102,8 +102,6 @@ export class ApplyLeavePanelComponent {
     let leaveFrom = moment(this.appliedLeave.leaveFrom);
     let leaveTo = moment(this.appliedLeave.leaveTo);
         
-    if(leaveFrom.isAfter(leaveTo))
-      return false;
     if(leaveFrom.isSame(leaveTo) && this.appliedLeave.leaveFromHalf === "Second" && this.appliedLeave.leaveToHalf === "First")
       return false;
     else

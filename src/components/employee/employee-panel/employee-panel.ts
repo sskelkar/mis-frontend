@@ -4,6 +4,7 @@ import {EmployeeDetailComponent} from '../employee-detail/employee-detail'
 import {EmployeeEditorComponent} from '../employee-editor/employee-editor'
 import {PasswordEditorComponent} from '../employee-editor/password-editor'
 import {LeavePanelComponent} from '../../leave/leave-panel/leave-panel';
+import {WelcomePanelComponent} from '../../welcome-panel/welcome-panel';
 import {EmployeeService} from '../../../services/employee-service';
 import {Employee} from '../../../domains/employee';
  
@@ -15,9 +16,14 @@ import {Employee} from '../../../domains/employee';
 @RouteConfig ([
   {
     path: '/',  
-    name: 'EmployeeDetail', 
-    component: EmployeeDetailComponent,
+    name: 'WelcomePanel', 
+    component: WelcomePanelComponent,
     useAsDefault: true
+  },  
+  {
+    path: '/detail',  
+    name: 'EmployeeDetail', 
+    component: EmployeeDetailComponent
   },
   {
     path: '/edit', 
