@@ -2,7 +2,6 @@
 
 import {bootstrap} from 'angular2/platform/browser'
 import {LoginComponent} from './components/login/login'
-import {EmployeePanelComponent} from './components/employee/employee-panel/employee-panel'
 import {HomePanelComponent} from './components/home/home-panel'
 import {Type} from "angular2/core";
 import {Component} from "angular2/core";
