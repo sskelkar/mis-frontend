@@ -8,6 +8,7 @@ import {LeavePanelComponent} from '../../leave/leave-panel/leave-panel';
 import {WelcomePanelComponent} from '../../welcome-panel/welcome-panel';
 import {EmployeeService} from '../../../services/employee-service';
 import {Employee} from '../../../domains/employee';
+import {RoomPanelComponent} from '../../room/room-panel/room-panel';
  
 @Component({
   selector: 'employee-panel',
@@ -45,6 +46,11 @@ import {Employee} from '../../../domains/employee';
     path: '/history', 
     name: 'EmployeeHistory', 
     component: EmployeeLeaveHistoryComponent
+  },
+  {
+    path: '/rooms', 
+    name: 'RoomPanel', 
+    component: RoomPanelComponent
   }  
 ])
 export class EmployeePanelComponent {

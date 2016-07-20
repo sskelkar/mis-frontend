@@ -9,6 +9,7 @@ import {HTTP_PROVIDERS, Response} from "angular2/http";
 import {ROUTER_PROVIDERS, ROUTER_DIRECTIVES, RouteConfig} from 'angular2/router';
 import {EmployeeService} from './services/employee-service';
 import {LeaveService} from './services/leave-service';
+import {RoomBookingService} from './services/room-booking-service';
 import {CloneService} from './services/clone-service';
 
 //For some reason Intellij throws errors if the component does not have in front of it.
@@ -16,7 +17,7 @@ import {CloneService} from './services/clone-service';
   selector: 'mis-frontend',
   templateUrl: 'mis-frontend.tpl.html',
   directives: [ROUTER_DIRECTIVES],
-  providers: [HTTP_PROVIDERS, EmployeeService, LeaveService, CloneService]
+  providers: [HTTP_PROVIDERS, EmployeeService, LeaveService, CloneService, RoomBookingService]
 })
 @RouteConfig([
   {
@@ -34,7 +35,7 @@ export class MisFrontend{
   constructor(leaveService:LeaveService) {
     //The following method is being called here so that public holidays will be fetched from backend service and cached in LeaveService. The same values can be used throughout the application
     // without having to make another network call.
-    leaveService.getAllHolidays();
+    // leaveService.getAllHolidays();
   }
 }
 

@@ -4,15 +4,16 @@ import {LeaveService} from '../../../services/leave-service';
 import {EmployeeService} from '../../../services/employee-service';
 @Component({
   selector: 'employee-history',
-  templateUrl : `employee-leave-history.tpl.html`,
+  templateUrl : `employee-leave-history.tpl.html`
 })
 export class EmployeeLeaveHistoryComponent{
   private appliedLeave:Array<AppliedLeave>;
   
   constructor(private leaveService:LeaveService, private employeeService:EmployeeService){
-    
+  
   }
-   ngOnInit(){
+  
+  ngOnInit(){
     this.leaveService.getEmployeeLeavesHistory(this.employeeService.getLoggedInEmployeeId()).subscribe(data => this.appliedLeave = data);
-   }
+  }
 }
