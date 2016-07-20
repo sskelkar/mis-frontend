@@ -5,8 +5,10 @@ import {EmployeeEditorComponent} from '../employee-editor/employee-editor'
 import {EmployeeLeaveHistoryComponent} from '../employee-leave-history/employee-leave-history'
 import {PasswordEditorComponent} from '../employee-editor/password-editor'
 import {LeavePanelComponent} from '../../leave/leave-panel/leave-panel';
+import {WelcomePanelComponent} from '../../welcome-panel/welcome-panel';
 import {EmployeeService} from '../../../services/employee-service';
 import {Employee} from '../../../domains/employee';
+import {RoomPanelComponent} from '../../room/room-panel/room-panel';
  
 @Component({
   selector: 'employee-panel',
@@ -16,9 +18,14 @@ import {Employee} from '../../../domains/employee';
 @RouteConfig ([
   {
     path: '/',  
-    name: 'EmployeeDetail', 
-    component: EmployeeDetailComponent,
+    name: 'WelcomePanel', 
+    component: WelcomePanelComponent,
     useAsDefault: true
+  },  
+  {
+    path: '/detail',  
+    name: 'EmployeeDetail', 
+    component: EmployeeDetailComponent
   },
   {
     path: '/edit', 
@@ -39,6 +46,11 @@ import {Employee} from '../../../domains/employee';
     path: '/history', 
     name: 'EmployeeHistory', 
     component: EmployeeLeaveHistoryComponent
+  },
+  {
+    path: '/rooms', 
+    name: 'RoomPanel', 
+    component: RoomPanelComponent
   }  
 ])
 export class EmployeePanelComponent {

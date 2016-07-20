@@ -7,7 +7,7 @@ import {LeaveService} from '../../../services/leave-service';
 import {EmployeeService} from '../../../services/employee-service';
 import {AfterContentInit} from 'angular2/core';
 import {CloneService} from '../../../services/clone-service';
-import {PublicHolidaysComponent} from '../../public-holidays/public-holidays';
+import {PublicHolidaysComponent} from '../public-holidays/public-holidays';
 import {Alert, BUTTON_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 declare var moment: any; //This is needed to make Typescript "happy". Ref: http://stackoverflow.com/a/35166209
 
@@ -102,8 +102,6 @@ export class ApplyLeavePanelComponent {
     let leaveFrom = moment(this.appliedLeave.leaveFrom);
     let leaveTo = moment(this.appliedLeave.leaveTo);
         
-    if(leaveFrom.isAfter(leaveTo))
-      return false;
     if(leaveFrom.isSame(leaveTo) && this.appliedLeave.leaveFromHalf === "Second" && this.appliedLeave.leaveToHalf === "First")
       return false;
     else

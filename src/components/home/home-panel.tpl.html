@@ -1,34 +1,27 @@
-<nav class="navbar navbar-default navbar-fixed-top" >
-<!--
-    <div class="row-fluid">
-      <a class="logo pull-left" href="/" title="Roompot Logo" role="logo">
-        <img src="/myrp-theme/images/logo_nl.jpg" alt="Roompot Logo" />
-      </a>
-      <div id="profile" class="pull-right">
-        <a class="user-profile" href="#">
-          <h3>
-          <span class="name">$user_name</span>
-          <i class="fa fa-user"></i>
-          </h3>
-        </a>
-        <div class="popover-content-profile popover fade bottom in">
-          <div class="arrow"></div>
-          <div class="popover-content">
-            <a class="close" href="javascript:void(0);">&times;</a>
-            <ul class="profile">
-              <span class="list-title">Welkom $user_name</span>
-              <li>
-                <a href="/$language/group/new/my-profile">Mijn gegevens</a>
-              </li>
-              <li>
-                <a href="$sign_out_url">Sign out</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
--->
+<nav class="navbar navbar-default" >
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" [routerLink]="['EmployeePanel', 'WelcomePanel']">MIS</a>
+    </div>   
+    <ul class="nav navbar-nav">
+      <!--
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Sub employees <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Page 1-1</a></li>
+          <li><a href="#">Page 1-2</a></li>
+          <li><a href="#">Page 1-3</a></li>
+        </ul>
+      </li>
+      <li><a [routerLink]="['EmployeePanel', 'EmployeeDetail']">Employee details</a></li>
+      <li><a [routerLink]="['EmployeePanel', 'LeavePanel']">Apply for leave</a></li> 
+      -->
+      <li><a [routerLink]="['EmployeePanel', 'RoomPanel']">Cabin booking</a></li>
+      <li><a [routerLink]="['EmployeePanel', 'EmployeeHistory']">History</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+    </ul>     
+  </div>
 </nav>
 
 <div class="container main-container">
@@ -39,3 +32,12 @@
     <p class="text-muted">Place sticky footer content here.</p>
   </div>
 </nav>
+
+
+<!--  
+  
+  [routerLink]="['EmployeePanel', EmployeeDetail']"
+
+[routerLink]="['EmployeePanel', LeavePanel']" 
+
+-->
