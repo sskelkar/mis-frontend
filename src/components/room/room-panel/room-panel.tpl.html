@@ -1,5 +1,7 @@
 Available rooms:
 
 <li *ngFor="#room of rooms">
-  <span class="badge">{{room?.name}}</span> {{room?.name}}
+  <a [routerLink]="['NewBookingPanel', {roomId: room.roomId}]">
+    <span>{{room?.name}}</span>
+  </a>
 </li>

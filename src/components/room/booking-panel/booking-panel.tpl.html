@@ -1,0 +1,8 @@
+Booking room: {{room?.name}}
+From: <input [(ngModel)]="booking.dateFrom" type="date" id="dateFrom"> <br/>
+To: <input [(ngModel)]="booking.dateTo" type="date" id="dateTo"> <br/>
+Purpose: <input [(ngModel)]="booking.purpose" type="text" id="purpose"> <br/><br/>
+
+<button type="button" class="btn" (click)="back()">Back</button>
+<button type="button" class="btn" (click)="cancel()">Cancel Booking</button>
+<button type="button" class="btn" (click)="book()">Book</button>
