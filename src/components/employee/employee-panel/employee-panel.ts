@@ -8,8 +8,9 @@ import {LeavePanelComponent} from '../../leave/leave-panel/leave-panel';
 import {WelcomePanelComponent} from '../../welcome-panel/welcome-panel';
 import {EmployeeService} from '../../../services/employee-service';
 import {Employee} from '../../../domains/employee';
+import {BookingPanelComponent} from '../../room/booking-panel/booking-panel';
 import {RoomPanelComponent} from '../../room/room-panel/room-panel';
- 
+
 @Component({
   selector: 'employee-panel',
   templateUrl : `employee-panel.tpl.html`,
@@ -48,10 +49,20 @@ import {RoomPanelComponent} from '../../room/room-panel/room-panel';
     component: EmployeeLeaveHistoryComponent
   },
   {
-    path: '/rooms', 
+    path: '/room',  
     name: 'RoomPanel', 
     component: RoomPanelComponent
-  }  
+  },
+  {
+    path: '/room/:roomId/book',  
+    name: 'NewBookingPanel', 
+    component: BookingPanelComponent
+  },
+  {
+    path: '/room/booking/:bookingId',  
+    name: 'ExistingBookingPanel', 
+    component: BookingPanelComponent
+  }    
 ])
 export class EmployeePanelComponent {
   private loggedInEmployee:Employee = <Employee>{};

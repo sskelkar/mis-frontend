@@ -1,10 +1,12 @@
 import {Component} from 'angular2/core';
 import {RoomBookingService} from '../../../services/room-booking-service';
+import {ROUTER_DIRECTIVES} from 'angular2/router';
 import {Room} from '../../../domains/room';
 
 @Component({
   selector :'room-panel',
-  templateUrl: 'room-panel.tpl.html'   
+  templateUrl: 'room-panel.tpl.html',
+  directives: [ROUTER_DIRECTIVES] 
 })
 export class RoomPanelComponent
 {
